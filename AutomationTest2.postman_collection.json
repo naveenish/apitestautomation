@@ -1,0 +1,213 @@
+{
+	"info": {
+		"_postman_id": "c8a5e7e6-7726-4649-9aa4-80c645d4d40d",
+		"name": "AutomationTest2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "API Test Automation",
+			"item": [
+				{
+					"name": "TC1: Verify GET Users request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"There are 10 users in the results \", function (){",
+									"    pm.expect(pm.response.json().length).to.eql(10);",
+									"});",
+									"",
+									"",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{TestHostUrl}}/users",
+							"host": [
+								"{{TestHostUrl}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC2: Verify GET User request by Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"id8 is Nicholas Runolfsdottir V\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[7].id).to.eql(8);",
+									"    pm.expect(jsonData[7].name).to.eql(\"Nicholas Runolfsdottir V\");",
+									"    pm.environment.set(\"responsePayload\", JSON.stringify(jsonData[1]));",
+									"    pm.environment.set(\"name\", JSON.stringify(jsonData[1].name));",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{TestHostUrl}}/users",
+							"host": [
+								"{{TestHostUrl}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC3: Verify POST Users request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify result id \", function () {",
+									"var jsonData = pm.response.json();",
+									"pm.expect(jsonData.id).to.eql(101);   });",
+									"    ",
+									"pm.test(\"Verify result name \", function () {",
+									"var jsonData = pm.response.json();",
+									"pm.expect(jsonData.name).to.eql(\"Naveen test\");  });",
+									"",
+									"pm.test(\"Verify result username \", function () {",
+									"var jsonData = pm.response.json();",
+									"pm.expect(jsonData.username).to.eql(\"Naveen.Senanayake\");  });",
+									"",
+									"pm.test(\"Verify result email\", function () {",
+									"var jsonData = pm.response.json();",
+									"pm.expect(jsonData.email).to.eql(\"naveen@test.com\");  });",
+									"",
+									"pm.test(\"Verify result address\", function () {",
+									"var jsonData = pm.response.json();",
+									"pm.expect(jsonData.address.street).to.eql(\"385\");  ",
+									"pm.expect(jsonData.address.suite).to.eql(\"Suite 198\"); ",
+									"pm.expect(jsonData.address.city).to.eql(\"Dunedin\");",
+									"pm.expect(jsonData.address.zipcode).to.eql(\"31428-2261\");",
+									"",
+									"pm.expect(jsonData.address.geo.lat).to.eql(\"-38.2386\");",
+									"pm.expect(jsonData.address.geo.lng).to.eql(\"57.2232\");",
+									"});",
+									"",
+									"pm.test(\"Verify Phone number and company\", function () {",
+									"var jsonData = pm.response.json();",
+									"pm.expect(jsonData.phone).to.eql(\"024-648-3804\");",
+									"pm.expect(jsonData.website).to.eql(\"ambrose.net\");",
+									"pm.expect(jsonData.company.name).to.eql(\"Hoeger LLC\"); });",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n    \"name\": \"Naveen test\",\r\n    \"username\": \"Naveen.Senanayake\",\r\n    \"email\": \"naveen@test.com\",\r\n    \"address\": {\r\n      \"street\": \"385\",\r\n      \"suite\": \"Suite 198\",\r\n      \"city\": \"Dunedin\",\r\n      \"zipcode\": \"31428-2261\",\r\n      \"geo\": {\r\n        \"lat\": \"-38.2386\",\r\n        \"lng\": \"57.2232\"\r\n      }\r\n    },\r\n    \"phone\": \"024-648-3804\",\r\n    \"website\": \"ambrose.net\",\r\n    \"company\": {\r\n      \"name\": \"Hoeger LLC\",\r\n      \"catchPhrase\": \"Centralized empowering task-force\",\r\n      \"bs\": \"target end-to-end models\"\r\n    }}"
+						},
+						"url": {
+							"raw": "{{TestHostUrl}}/posts",
+							"host": [
+								"{{TestHostUrl}}"
+							],
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC3: Verify POST Users request Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify result id \", function () {",
+									"var jsonData = pm.response.json();",
+									"pm.expect(jsonData.id).to.eql(101);   });",
+									"    ",
+									"//var putPayload =  JSON.parse(pm.globals.get(\"responsePayload'));",
+									"//pm.globals.set(\"resposnePayload, JSON.Stingify(putPayload);",
+									"",
+									"",
+									"",
+									"",
+									"",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{responsePayload}}"
+						},
+						"url": {
+							"raw": "{{TestHostUrl}}/posts",
+							"host": [
+								"{{TestHostUrl}}"
+							],
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
